@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :require_user_logged_in, only: [:index, :show]
+  before_action :require_user_logged_in, only: [:index, :show, :new, :edit]
   
   def index
     if logged_in?
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
       flash[:success] = "Task が正常に作成されました"
       redirect_to @task
     else
-      @tasks = @task = current_user.tasks.order(id: :desc).page(params[:page])
+      @tasks = current_user.tasks.order(id: :desc).page(params[:page])
       flash.now[:danger] = "Task が作成されませんでした"
       render :new
     end
